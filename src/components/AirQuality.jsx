@@ -8,13 +8,11 @@ import {
   WiSmoke,
   WiStrongWind,
 } from "weather-icons-react";
-import { getParams } from "../utils/getParams";
 
-export function AirQuality() {
+export function AirQuality({ latitude, longitude }) {
   const { message } = AntDApp.useApp();
   const [airQualityData, setAirQualityData] = useState({});
   const [loading, setLoading] = useState(true);
-  const { latitude, longitude } = getParams(["latitude", "longitude"]);
 
   useEffect(() => {
     const params = {

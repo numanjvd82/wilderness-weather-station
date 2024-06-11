@@ -11,14 +11,12 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import weatherIconMap from "../components/WeatherIcons";
-import { getParams } from "../utils/getParams";
 
-export function TenDayForecast() {
+export function TenDayForecast({ latitude, longitude }) {
   const { message } = AntDApp.useApp();
   const { token } = theme.useToken();
   const [dailyData, setDailyData] = useState({});
   const [loading, setLoading] = useState(true);
-  const { latitude, longitude } = getParams(["latitude", "longitude"]);
 
   useEffect(() => {
     const params = {

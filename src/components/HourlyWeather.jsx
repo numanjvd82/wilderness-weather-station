@@ -2,13 +2,11 @@ import { App as AntDApp, Badge, Card, Flex, Typography } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { WiDaySunny, WiMoonAltFirstQuarter } from "weather-icons-react";
-import { getParams } from "../utils/getParams";
 
-export function HourlyWeather() {
+export function HourlyWeather({ latitude, longitude }) {
   const { message } = AntDApp.useApp();
   const [hourlyData, setHourlyData] = useState({});
   const [loading, setLoading] = useState(true);
-  const { latitude, longitude } = getParams(["latitude", "longitude"]);
 
   useEffect(() => {
     const params = {
@@ -53,16 +51,19 @@ export function HourlyWeather() {
     return null;
   }
 
-  const timeSeries = hourlyData.hourly.time.map((time, index) => {
-    const dayTime = new Date(time).getHours();
-    const isDay = dayTime >= 6 && dayTime <= 18;
-    return {
-      time,
-      temperature: hourlyData.hourly.temperature_2m[index],
-      weatherCode: hourlyData.hourly.weather_code[index],
-      icon: isDay ? WiDaySunny : WiMoonAltFirstQuarter,
-    };
-  });
+  const timeSeries = hourlyData.hourly.time
+    .map((time, index) => {
+      const dayTime = new Date(time).getHours();
+      const isDay = dayTime >= 6 && dayTime <= 18;
+
+      return {
+        time,
+        temperature: hourlyData.hourly.temperature_2m[index],
+        weatherCode: hourlyData.hourly.weather_code[index],
+        icon: isDay ? WiDaySunny : WiMoonAltFirstQuarter,
+      };
+    })
+    .slice(0, 24);
 
   return (
     <Card title="Hourly Weather">

@@ -1,13 +1,11 @@
 import { App as AntDApp, Card, Col, Row, Statistic, Typography } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { getParams } from "../utils/getParams";
 
-export function CurrentWeather() {
+export function CurrentWeather({ latitude, longitude }) {
   const { message } = AntDApp.useApp();
   const [weatherData, setWeatherData] = useState({});
   const [loading, setLoading] = useState(true);
-  const { latitude, longitude } = getParams(["latitude", "longitude"]);
 
   useEffect(() => {
     const params = {

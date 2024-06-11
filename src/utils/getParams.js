@@ -1,15 +1,14 @@
-export function getParams(params = []) {
-  const url = new URL(window.location.href);
+export function getParams(searchParams, params = []) {
   if (params.length) {
     const newParams = {};
     params.forEach((param) => {
-      newParams[param] = url.searchParams.get(param);
+      newParams[param] = searchParams.get(param);
     });
     return newParams;
   }
 
   const newParams = {};
-  url.searchParams.forEach((value, key) => {
+  searchParams.forEach((value, key) => {
     newParams[key] = value;
   });
   return newParams;
