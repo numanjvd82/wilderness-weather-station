@@ -1,7 +1,7 @@
 import { App as AntDApp, Badge, Card, Flex, Typography } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { WiDaySunny, WiMoonAltFirstQuarter } from "weather-icons-react";
+import { WiMoonAltWaningCrescent3, WiSunrise } from "weather-icons-react";
 
 export function HourlyWeather({ latitude, longitude }) {
   const { message } = AntDApp.useApp();
@@ -53,14 +53,21 @@ export function HourlyWeather({ latitude, longitude }) {
 
   const timeSeries = hourlyData.hourly.time
     .map((time, index) => {
-      const dayTime = new Date(time).getHours();
-      const isDay = dayTime >= 6 && dayTime <= 18;
+      const startHours = new Date().getHours() + index;
+      const startTime = new Date().setHours(startHours);
+      const isDay =
+        new Date(startTime).getHours() >= 6 &&
+        new Date(startTime).getHours() <= 18;
+      const formattedTime = new Date(startTime).toLocaleTimeString("en-US", {
+        hour: "numeric",
+        hour12: true,
+      });
 
       return {
-        time,
+        time: formattedTime,
         temperature: hourlyData.hourly.temperature_2m[index],
         weatherCode: hourlyData.hourly.weather_code[index],
-        icon: isDay ? WiDaySunny : WiMoonAltFirstQuarter,
+        icon: isDay ? WiSunrise : WiMoonAltWaningCrescent3,
       };
     })
     .slice(0, 24);
@@ -95,9 +102,7 @@ export function HourlyWeather({ latitude, longitude }) {
                   fontWeight: "bold",
                 }}
               >
-                {new Date(timeData.time).toLocaleTimeString("en-US", {
-                  hour: "2-digit",
-                })}
+                {timeData.time}
               </Typography.Text>
               <Badge
                 count={`${timeData.temperature}°C`}

@@ -1,4 +1,4 @@
-import { App as AntDApp, Badge, Card, Col, Row, Space, Typography } from "antd";
+import { App as AntDApp, Badge, Card, Col, Row, Typography } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import {
@@ -117,25 +117,23 @@ export function AirQuality({ latitude, longitude }) {
 
   return (
     <Card title="Air Quality" style={{ marginBottom: 20 }}>
-      <Space>
-        <Row>
-          {data.map(({ title, value, category, Icon }, index) => {
-            const WiIcon = Icon;
-            return (
-              <Col key={index} span={24}>
-                <Badge.Ribbon text={value}>
-                  <Card title={title} size="small">
-                    <WiIcon size={50} />
-                    <Typography.Paragraph>
-                      {category}: {value}
-                    </Typography.Paragraph>
-                  </Card>
-                </Badge.Ribbon>
-              </Col>
-            );
-          })}
-        </Row>
-      </Space>
+      <Row gutter={[12, 12]}>
+        {data.map(({ title, value, category, Icon }, index) => {
+          const WiIcon = Icon;
+          return (
+            <Col key={index} xs={18} md={12} lg={8}>
+              <Badge.Ribbon text={value}>
+                <Card title={title} size="small">
+                  <WiIcon size={50} />
+                  <Typography.Paragraph>
+                    {category}: {value}
+                  </Typography.Paragraph>
+                </Card>
+              </Badge.Ribbon>
+            </Col>
+          );
+        })}
+      </Row>
     </Card>
   );
 }
