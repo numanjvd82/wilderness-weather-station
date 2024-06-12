@@ -125,9 +125,7 @@ export function AirQuality({ latitude, longitude }) {
               <Badge.Ribbon text={value}>
                 <Card title={title} size="small">
                   <WiIcon size={50} />
-                  <Typography.Paragraph>
-                    {category}: {value}
-                  </Typography.Paragraph>
+                  <Typography.Paragraph>{category}</Typography.Paragraph>
                 </Card>
               </Badge.Ribbon>
             </Col>

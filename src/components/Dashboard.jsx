@@ -3,6 +3,7 @@ import { getParams } from "../utils/getParams";
 import { AirQuality } from "./AirQuality";
 import { CurrentWeather } from "./CurrentWeather";
 import { HourlyWeather } from "./HourlyWeather";
+import PreviousDaysChart from "./PreviousDaysChart";
 import { TenDayForecast } from "./TenDayForecast";
 
 export function Dashboard() {
@@ -14,6 +15,7 @@ export function Dashboard() {
   return (
     <>
       <CurrentWeather latitude={latitude} longitude={longitude} />
+      <PreviousDaysChart latitude={latitude} longitude={longitude} />
       <HourlyWeather latitude={latitude} longitude={longitude} />
       <TenDayForecast latitude={latitude} longitude={longitude} />
       <AirQuality latitude={latitude} longitude={longitude} />

@@ -35,6 +35,7 @@ const Header = () => {
         setOptions(
           () =>
             data?.results?.map((location) => ({
+              key: `${location.latitude}-${location.longitude}`,
               id: location.id,
               value: location.name,
               country: location.country,
@@ -85,6 +86,11 @@ const Header = () => {
         </Flex>
 
         <AutoComplete
+          filterOption={(inputValue) =>
+            options.filter((option) =>
+              option.value.toLowerCase().includes(inputValue.toLowerCase())
+            )
+          }
           optionRender={({ data }) => (
             <Flex key={data.id} justify="space-between">
               <Typography.Text>{data.value}</Typography.Text>

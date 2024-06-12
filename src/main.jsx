@@ -13,6 +13,14 @@ ReactDOM.createRoot(document.getElementById("root")).render(
         token: {
           colorPrimary: "#55AD9B",
           colorBgBase: "#F1F8E8",
+          colorLinkHover: "#55AD9B",
+          colorLinkActive: "#55AD9B",
+          colorLink: "#55AD9B",
+        },
+        components: {
+          Card: {
+            lineWidth: 2,
+          },
         },
       }}
     >

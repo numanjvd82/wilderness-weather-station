@@ -1,4 +1,21 @@
+:root {
+  --main-hover-color: #9bddd0;
+}
+
 .hourly-weather-card:hover {
-  background-color: #f0f0f0;
+  background-color: var(--main-hover-color);
   border-radius: 10px;
+}
+
+.ten-day-forecast-card {
+  perspective: 1000px;
+}
+
+.ten-day-forecast-card > .ant-card-body {
+  transition: transform 0.2s ease;
+}
+
+.ten-day-forecast-card:hover {
+  translate: translateY(-5px);
+  box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
 }

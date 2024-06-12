@@ -11,6 +11,7 @@ import {
 import axios from "axios";
 import { useEffect, useState } from "react";
 import weatherIconMap from "../components/WeatherIcons";
+import { handleTiltMouseLeave, handleTiltMouseMove } from "../utils";
 
 export function TenDayForecast({ latitude, longitude }) {
   const { message } = AntDApp.useApp();
@@ -29,7 +30,6 @@ export function TenDayForecast({ latitude, longitude }) {
         "weather_code",
       ],
       forecast_days: 10,
-      timezone: "Asia/Karachi",
     };
     async function getDailyWeatherData() {
       setLoading(true);
@@ -87,7 +87,14 @@ export function TenDayForecast({ latitude, longitude }) {
                 textAlign: "center",
               }}
             >
-              <Card>
+              <Card
+                onMouseMove={(e) => handleTiltMouseMove(e, e.currentTarget)}
+                onMouseLeave={(e) => handleTiltMouseLeave(e.currentTarget)}
+                style={{
+                  transition: "all 0.2s",
+                }}
+                className="ten-day-forecast-card"
+              >
                 <WeatherIcon size={50} />
                 <Typography.Text
                   style={{

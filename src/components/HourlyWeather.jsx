@@ -1,9 +1,10 @@
-import { App as AntDApp, Badge, Card, Flex, Typography } from "antd";
+import { App as AntDApp, Badge, Card, Flex, Typography, theme } from "antd";
 import axios from "axios";
 import { useEffect, useState } from "react";
 import { WiMoonAltWaningCrescent3, WiSunrise } from "weather-icons-react";
 
 export function HourlyWeather({ latitude, longitude }) {
+  const { token } = theme.useToken();
   const { message } = AntDApp.useApp();
   const [hourlyData, setHourlyData] = useState({});
   const [loading, setLoading] = useState(true);
@@ -108,10 +109,10 @@ export function HourlyWeather({ latitude, longitude }) {
                 count={`${timeData.temperature}°C`}
                 color={
                   timeData.temperature <= 20
-                    ? "blue"
+                    ? token.blue5
                     : timeData.temperature <= 25
-                    ? "orange"
-                    : "red"
+                    ? token.orange5
+                    : token.red5
                 }
               />
             </Flex>
