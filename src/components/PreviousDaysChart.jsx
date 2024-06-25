@@ -22,6 +22,38 @@ export function PreviousDaysChart({ longitude, latitude }) {
       latitude,
       longitude,
       hourly: [
+        "relative_humidity_2m",
+        "relative_humidity_2m_previous_day1",
+        "relative_humidity_2m_previous_day2",
+        "relative_humidity_2m_previous_day3",
+        "relative_humidity_2m_previous_day4",
+        "relative_humidity_2m_previous_day5",
+        "relative_humidity_2m_previous_day6",
+        "relative_humidity_2m_previous_day7",
+        "dew_point_2m",
+        "dew_point_2m_previous_day1",
+        "dew_point_2m_previous_day2",
+        "dew_point_2m_previous_day3",
+        "dew_point_2m_previous_day4",
+        "dew_point_2m_previous_day5",
+        "dew_point_2m_previous_day6",
+        "dew_point_2m_previous_day7",
+        "apparent_temperature",
+        "apparent_temperature_previous_day1",
+        "apparent_temperature_previous_day2",
+        "apparent_temperature_previous_day3",
+        "apparent_temperature_previous_day4",
+        "apparent_temperature_previous_day5",
+        "apparent_temperature_previous_day6",
+        "apparent_temperature_previous_day7",
+        "precipitation",
+        "precipitation_previous_day1",
+        "precipitation_previous_day2",
+        "precipitation_previous_day3",
+        "precipitation_previous_day4",
+        "precipitation_previous_day5",
+        "precipitation_previous_day6",
+        "precipitation_previous_day7",
         "temperature_2m",
         "temperature_2m_previous_day1",
         "temperature_2m_previous_day2",
@@ -75,6 +107,10 @@ export function PreviousDaysChart({ longitude, latitude }) {
           }
         ),
         temperature: previousDays.hourly.temperature_2m[0],
+        dewpoint: previousDays.hourly.dew_point_2m[0],
+        precipitation: previousDays.hourly.precipitation[0],
+        apparentTemperature: previousDays.hourly.apparent_temperature[0],
+        relativeHumidity: previousDays.hourly.relative_humidity_2m[0],
       });
       continue;
     }
@@ -87,10 +123,16 @@ export function PreviousDaysChart({ longitude, latitude }) {
         year: "numeric",
       }),
       temperature: previousDays.hourly[`temperature_2m_previous_day${i}`][0],
+      dewpoint: previousDays.hourly[`dew_point_2m_previous_day${i}`][0],
+      precipitation: previousDays.hourly[`precipitation_previous_day${i}`][0],
+      apparentTemperature:
+        previousDays.hourly[`apparent_temperature_previous_day${i}`][0],
+      relativeHumidity:
+        previousDays.hourly[`relative_humidity_2m_previous_day${i}`][0],
     });
   }
 
-  console.log(data);
+  console.log(previousDays.hourly);
 
   return (
     <div
@@ -108,7 +150,7 @@ export function PreviousDaysChart({ longitude, latitude }) {
           marginBottom: "2rem",
         }}
       >
-        Previous Days Temperature
+        Past 7 days Forecast
       </Typography.Title>
       <Flex justify="center" align="center">
         <LineChart width={1000} height={250} data={data} margin={{ top: 5 }}>
@@ -120,7 +162,34 @@ export function PreviousDaysChart({ longitude, latitude }) {
           <Line
             type="monotone"
             dataKey="temperature"
+            name="Temperature"
             stroke={token.colorPrimary}
+          />
+          <Line
+            type="monotone"
+            name="Dewpoint"
+            dataKey="dewpoint"
+            stroke={token.geekblue}
+          />
+          <Line
+            type="monotone"
+            dataKey="relativeHumidity"
+            name="Relative Humidity"
+            stroke={token.colorError}
+          />
+
+          <Line
+            type="monotone"
+            dataKey="apparentTemperature"
+            name="Apparent Temperature"
+            stroke={token.colorSuccess}
+          />
+
+          <Line
+            type="monotone"
+            dataKey="precipitation"
+            name="Precipitation"
+            stroke={token.colorWarning}
           />
         </LineChart>
       </Flex>
